@@ -1,8 +1,5 @@
 package com.example.josephmalafronte.visualizebaseballapp;
 
-
-//This is test code - Joseph
-
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
