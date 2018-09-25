@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
 <<<<<<< Bobby
+=======
+<<<<<<< HEAD
+>>>>>>> master
 =======
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
@@ -27,7 +31,11 @@
       </value>
     </option>
   </component>
+<<<<<<< HEAD
 >>>>>>> Setting Up Link to Firebase
+=======
+>>>>>>> master
+>>>>>>> master
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
