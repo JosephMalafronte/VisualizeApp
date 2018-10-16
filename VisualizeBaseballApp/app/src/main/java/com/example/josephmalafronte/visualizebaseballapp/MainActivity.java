@@ -10,6 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.view.View.OnClickListener;
+import android.content.Intent;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,27 +33,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button yourButton = (Button) findViewById(R.id.your_buttons_id);
+        Button btnTour = (Button) findViewById(R.id.tourButton);
 
-        yourButton.setOnClickListener(new OnClickListener(){
+        btnTour.setOnClickListener(new OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(YourCurrentActivity.this, YourNewActivity.class));
+                startActivity(new Intent(MainActivity.this, TourActivity.class));
             }
         });
 
-        Button yourButton = (Button) findViewById(R.id.your_buttons_id);
+        Button btnScan = (Button) findViewById(R.id.scanButton);
 
-        yourButton.setOnClickListener(new OnClickListener(){
+        btnScan.setOnClickListener(new OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(YourCurrentActivity.this, YourNewActivity.class));
+                startActivity(new Intent(MainActivity.this, ScanActivity.class));
             }
         });
 
-        Button yourButton = (Button) findViewById(R.id.your_buttons_id);
+        Button btnMap = (Button) findViewById(R.id.mapButton);
 
-        yourButton.setOnClickListener(new OnClickListener(){
+        btnMap.setOnClickListener(new OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(YourCurrentActivity.this, YourNewActivity.class));
+                startActivity(new Intent(MainActivity.this, MapActivity.class));
             }
         });
 
