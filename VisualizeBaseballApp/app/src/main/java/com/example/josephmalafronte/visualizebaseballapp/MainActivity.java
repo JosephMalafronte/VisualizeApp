@@ -28,6 +28,31 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Button yourButton = (Button) findViewById(R.id.your_buttons_id);
+
+        yourButton.setOnClickListener(new OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(YourCurrentActivity.this, YourNewActivity.class));
+            }
+        });
+
+        Button yourButton = (Button) findViewById(R.id.your_buttons_id);
+
+        yourButton.setOnClickListener(new OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(YourCurrentActivity.this, YourNewActivity.class));
+            }
+        });
+
+        Button yourButton = (Button) findViewById(R.id.your_buttons_id);
+
+        yourButton.setOnClickListener(new OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(YourCurrentActivity.this, YourNewActivity.class));
+            }
+        });
+
     }
 
     @Override
