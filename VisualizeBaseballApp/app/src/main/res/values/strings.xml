@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">VisualizeBaseballApp</string>
     <string name="action_settings">Settings</string>
+    <string name="imageLeft">MainPageImage1</string>
+    <string name="imageCenter">MainPageImage2</string>
+    <string name="imageRight">MainPageImage3</string>
 </resources>
