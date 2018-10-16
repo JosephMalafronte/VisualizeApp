@@ -9,9 +9,22 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="none|textPersonName"
+        android:text="Alabama Stadium Tour"
+        android:textColor="#9E1B32"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:background="@android:color/white" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="288dp"
         android:orientation="horizontal"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".MainActivity"
@@ -23,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_weight="1"
+            android:background="@drawable/border"
             android:contentDescription="@string/imageLeft"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/bama" />
@@ -33,22 +47,63 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_weight="1"
+            android:background="@drawable/border"
             android:contentDescription="@string/imageCenter"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/pic1" />
 
         <ImageView
             android:id="@+id/image3"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_weight="1"
+            android:background="@drawable/border"
             android:contentDescription="@string/imageRight"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/baseball" />
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/tourButton"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/mapButton"
+            android:background="@drawable/button_border"
+            android:text="@string/TOUR"
+            android:textColor="#9E1B32"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/scanButton"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border"
+            android:text="@string/SCAN"
+            android:textColor="#9E1B32"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/mapButton"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/scanButton"
+            android:background="@drawable/button_border"
+            android:text="@string/MAP"
+            android:textColor="#9E1B32"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 
 </LinearLayout>
