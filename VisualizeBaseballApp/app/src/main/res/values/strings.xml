@@ -4,4 +4,8 @@
     <string name="imageLeft">MainPageImage1</string>
     <string name="imageCenter">MainPageImage2</string>
     <string name="imageRight">MainPageImage3</string>
+    <string name="SCAN">Scan</string>
+    <string name="MAP">Map</string>
+    <string name="TOUR">Tour</string>
+
 </resources>
