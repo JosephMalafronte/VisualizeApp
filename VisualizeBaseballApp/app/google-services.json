@@ -15,14 +15,19 @@
       },
       "oauth_client": [
         {
+          "client_id": "255845041100-i6tpmttofuiffappddjlggu1rhv8aas9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.josephmalafronte.visualizebaseballapp",
+            "certificate_hash": "728bbeac56f136dd47be0c611935bb6ac79c76a9"
+          }
+        },
+        {
           "client_id": "255845041100-118uoaq7b89u0jr91ur6jfj6md7fv317.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
-        {
-          "current_key": "AIzaSyDK_o7KwDwSvJu1phIvUhVCH3DYXxeMspg"
-        },
         {
           "current_key": "AIzaSyDK_o7KwDwSvJu1phIvUhVCH3DYXxeMspg"
         }
@@ -32,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255845041100-118uoaq7b89u0jr91ur6jfj6md7fv317.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
