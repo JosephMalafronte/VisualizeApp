@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.content.Intent;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 //Import Firebase Content
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.InputStream;
 
 
+
 public class MainActivity extends AppCompatActivity {
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference mDatabase = database.getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        setTitle();
+
         setImages();
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -126,10 +136,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void setTitle() {
+        DatabaseReference refText = mDatabase.child("BaseballApp").child("Homepage").child("Title");
+
+        refText.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TextView tv1 = (TextView)findViewById(R.id.editText);
+                tv1.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+    }
+
+
+
     public void setImages() {
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabase = database.getReference();
+
         DatabaseReference UpperLevel = mDatabase.child("BaseballApp").child("Homepage").child("Images");
 
         //Set Left Image
