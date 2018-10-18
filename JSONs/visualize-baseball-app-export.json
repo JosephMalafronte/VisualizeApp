@@ -1,0 +1,15 @@
+{
+  "BaseballApp" : {
+    "Homepage" : {
+    "Images" : {
+      "LeftImage" : "https://firebasestorage.googleapis.com/v0/b/visualize-baseball-app.appspot.com/o/bama.jpg?alt=media&token=f320f45b-d19e-4df1-9faf-c8175667a4c5",
+      "MiddleImage" : "https://firebasestorage.googleapis.com/v0/b/visualize-baseball-app.appspot.com/o/pic1.jpg?alt=media&token=55e019fa-931c-461e-86b4-bcaf9a907f9b",
+      "RightImage" : "https://firebasestorage.googleapis.com/v0/b/visualize-baseball-app.appspot.com/o/baseball.jpeg?alt=media&token=e65fa817-33e6-4fff-b114-48d314a58e5a"
+    }
+  },
+  "TestData" : {
+    "Value1" : "Taco Tuesday"
+  },
+  "message" : "Test"
+  }
+}
