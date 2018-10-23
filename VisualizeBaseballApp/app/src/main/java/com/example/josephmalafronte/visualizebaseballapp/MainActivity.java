@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        //Make text not editable
+        EditText mEdit = (EditText) findViewById(R.id.editText);
+        mEdit.setEnabled(false);
 
         setTitle();
 

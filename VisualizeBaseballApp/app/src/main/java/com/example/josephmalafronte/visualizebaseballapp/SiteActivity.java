@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +47,10 @@ public class SiteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site);
+
+        //Make text not editable
+        EditText mEdit = (EditText) findViewById(R.id.editText);
+        mEdit.setEnabled(false);
 
         getSiteNumber();
     }
