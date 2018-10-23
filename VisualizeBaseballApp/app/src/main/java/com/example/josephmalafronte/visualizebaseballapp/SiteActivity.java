@@ -41,14 +41,16 @@ public class SiteActivity extends AppCompatActivity {
 
     int siteNumber = 1;
     String siteString;
-    int waiter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site);
 
-        //getSiteNumber();
+        getSiteNumber();
+    }
+
+    private void afterSiteNumber(){
         siteString = "Site" + Integer.toString(siteNumber);
 
         siteRef = mDatabase.child("BaseballApp").child("Sites").child(siteString);
@@ -56,17 +58,15 @@ public class SiteActivity extends AppCompatActivity {
 
         //Set Title
         setTitle();
-
     }
 
     private void getSiteNumber(){
         DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
-
         numRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 siteNumber = Integer.parseInt(dataSnapshot.getValue().toString());
-                waiter = 1;
+                afterSiteNumber();
             }
 
             @Override
@@ -75,6 +75,16 @@ public class SiteActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setSiteNumber(int num){
+        DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
+        numRef.setValue(num);
+    }
+
+    public void resetActivity() {
+        finish();
+        startActivity(getIntent());
     }
 
     public void setTitle() {
