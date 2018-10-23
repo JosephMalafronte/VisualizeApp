@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -36,14 +37,21 @@ public class SiteActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabase = database.getReference();
+    DatabaseReference siteRef;
 
     int siteNumber = 1;
-    String siteString = "Site" + Integer.toString(siteNumber);
+    String siteString;
+    int waiter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site);
+
+        //getSiteNumber();
+        siteString = "Site" + Integer.toString(siteNumber);
+
+        siteRef = mDatabase.child("BaseballApp").child("Sites").child(siteString);
 
 
         //Set Title
@@ -51,9 +59,26 @@ public class SiteActivity extends AppCompatActivity {
 
     }
 
+    private void getSiteNumber(){
+        DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
+
+        numRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                siteNumber = Integer.parseInt(dataSnapshot.getValue().toString());
+                waiter = 1;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+    }
 
     public void setTitle() {
-        DatabaseReference refText = mDatabase.child("BaseballApp").child("Sites").child(siteString).child("Name");
+        DatabaseReference refText = siteRef.child("Name");
 
         refText.addValueEventListener(new ValueEventListener() {
             @Override
