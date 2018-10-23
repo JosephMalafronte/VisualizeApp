@@ -37,15 +37,36 @@ public class SiteActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabase = database.getReference();
 
+    int siteNumber = 1;
+    String siteString = "Site" + Integer.toString(siteNumber);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        setContentView(R.layout.activity_site);
+
+
+        //Set Title
+        setTitle();
+
+    }
+
+
+    public void setTitle() {
+        DatabaseReference refText = mDatabase.child("BaseballApp").child("Sites").child(siteString).child("Name");
+
+        refText.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TextView tv1 = (TextView)findViewById(R.id.editText);
+                tv1.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
 
     }
 

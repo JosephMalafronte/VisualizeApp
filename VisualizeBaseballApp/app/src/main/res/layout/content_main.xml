@@ -65,7 +65,7 @@
             android:background="@drawable/border"
             android:contentDescription="@string/imageRight"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/baseball"
+            app:srcCompat="@drawable/thrower"
             android:layout_width="0dp" />
 
 
