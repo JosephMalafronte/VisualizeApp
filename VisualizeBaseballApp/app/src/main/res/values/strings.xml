@@ -7,5 +7,6 @@
     <string name="SCAN">Scan</string>
     <string name="MAP">Map</string>
     <string name="TOUR">Tour</string>
+    <string name="next_site">Next Site</string>
 
 </resources>

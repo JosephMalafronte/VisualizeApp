@@ -40,6 +40,11 @@ public class SiteActivity extends AppCompatActivity {
     DatabaseReference mDatabase = database.getReference();
     DatabaseReference siteRef;
 
+
+    //ViewModes define what type of experience is currently happening
+    // 1 = Tour
+    int viewMode = 0;
+
     int siteNumber = 1;
     String siteString;
 
@@ -47,6 +52,11 @@ public class SiteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site);
+        setMode();
+
+        if(viewMode == 1){
+            tourSetUp();
+        }
 
         //Make text not editable
         EditText mEdit = (EditText) findViewById(R.id.editText);
@@ -55,7 +65,24 @@ public class SiteActivity extends AppCompatActivity {
         getSiteNumber();
     }
 
-    private void afterSiteNumber(){
+    public void setMode() {
+        viewMode = 0;
+    }
+
+    //Function that sets up activity for tour
+    public void tourSetUp() {
+        Button btnNextSite = findViewById(R.id.btnNextSite);
+
+        btnNextSite.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                setSiteNumber(2);
+                resetActivity();
+            }
+        });
+
+    }
+
+    public void afterSiteNumber(){
         siteString = "Site" + Integer.toString(siteNumber);
 
         siteRef = mDatabase.child("BaseballApp").child("Sites").child(siteString);
@@ -65,7 +92,7 @@ public class SiteActivity extends AppCompatActivity {
         setTitle();
     }
 
-    private void getSiteNumber(){
+    public void getSiteNumber(){
         DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
         numRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
