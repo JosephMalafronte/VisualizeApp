@@ -12,18 +12,18 @@
 
 
     <Button
-        android:id="@+id/btnHomePage"
+        android:id="@+id/btnTopLeft"
         android:layout_width="153dp"
         android:layout_height="wrap_content"
-        android:text="Return to Home"
+        android:text=""
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="left|top" />
 
     <Button
-        android:id="@+id/btnNextSite"
+        android:id="@+id/btnTopRight"
         android:layout_width="153dp"
         android:layout_height="wrap_content"
-        android:text="Next Site"
+        android:text=""
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="right|top" />
 

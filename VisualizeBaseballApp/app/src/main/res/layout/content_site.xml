@@ -18,7 +18,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="none|textPersonName"
-        android:text="Site Title"
+        android:text=""
         android:textColor="#9E1B32"
         android:textSize="30sp"
         android:textStyle="bold"

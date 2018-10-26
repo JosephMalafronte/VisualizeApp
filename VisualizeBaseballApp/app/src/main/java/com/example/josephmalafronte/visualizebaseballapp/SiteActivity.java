@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,17 +47,14 @@ public class SiteActivity extends AppCompatActivity {
     int viewMode = 0;
 
     int siteNumber = 1;
+    int numberOfSites = 100;
     String siteString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site);
-        setMode();
 
-        if(viewMode == 1){
-            tourSetUp();
-        }
 
         //Make text not editable
         EditText mEdit = (EditText) findViewById(R.id.editText);
@@ -71,18 +69,45 @@ public class SiteActivity extends AppCompatActivity {
 
     //Function that sets up activity for tour
     public void tourSetUp() {
-        Button btnNextSite = findViewById(R.id.btnNextSite);
 
-        btnNextSite.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                setSiteNumber(2);
-                resetActivity();
-            }
-        });
+        Button btnTopRight = findViewById(R.id.btnTopRight);
+        if(numberOfSites == siteNumber){
+            btnTopRight.setVisibility(View.INVISIBLE);
+        }
+        else{
+            btnTopRight.setText("Next Site");
+            btnTopRight.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    setSiteNumber(siteNumber+1);
+                    resetActivity();
+                }
+            });
+        }
+
+        Button btnTopLeft = findViewById(R.id.btnTopLeft);
+        if(siteNumber == 1){
+            btnTopLeft.setVisibility(View.INVISIBLE);
+        }
+        else{
+            btnTopLeft.setText("Previous Site");
+            btnTopLeft.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    setSiteNumber(siteNumber-1);
+                    resetActivity();
+                }
+            });
+        }
 
     }
 
     public void afterSiteNumber(){
+        setMode();
+
+        if(viewMode == 1){
+            tourSetUp();
+        }
+
+
         siteString = "Site" + Integer.toString(siteNumber);
 
         siteRef = mDatabase.child("BaseballApp").child("Sites").child(siteString);
@@ -98,7 +123,7 @@ public class SiteActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 siteNumber = Integer.parseInt(dataSnapshot.getValue().toString());
-                afterSiteNumber();
+                getTotalSites();
             }
 
             @Override
@@ -107,6 +132,22 @@ public class SiteActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void getTotalSites() {
+        DatabaseReference totalRef = mDatabase.child("BaseballApp").child("Sites").child("NumberOfSites");
+        totalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                numberOfSites = Integer.parseInt(dataSnapshot.getValue().toString());
+                afterSiteNumber();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
 
     public void setSiteNumber(int num){
