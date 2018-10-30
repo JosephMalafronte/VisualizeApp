@@ -21,6 +21,9 @@ import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+//Import QR Scanning Content
+//import com.google.android.gms.vision.barcode;
+
 //Import Firebase Content
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -100,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
         btnScan.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ScanActivity.class));
+
+                //Where we will start the Scan activity:
+                //val intent = Intent(applicationContext, ScanActivity::class.java);
+                //startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
             }
         });
 
