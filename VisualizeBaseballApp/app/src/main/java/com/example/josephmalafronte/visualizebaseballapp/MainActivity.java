@@ -21,17 +21,6 @@ import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-//Import QR Scanning Content
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.vision.barcode.Barcode;
-import barcodereadersample.barcode.BarcodeCaptureActivity;
-
 //Import Firebase Content
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStream;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -98,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btnTour = (Button) findViewById(R.id.tourButton);
-
         btnTour.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, TourActivity.class));
@@ -106,14 +93,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button btnScan = (Button) findViewById(R.id.scanButton);
-
         btnScan.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ScanActivity.class));
 
-                //Where we will start the Scan activity:
-                //val intent = Intent(applicationContext, BarcodeCaptureActivity::class.java);
-                //startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
             }
         });
 
