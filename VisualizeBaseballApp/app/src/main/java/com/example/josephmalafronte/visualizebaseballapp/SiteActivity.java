@@ -63,12 +63,13 @@ public class SiteActivity extends AppCompatActivity {
         getSiteNumber();
     }
 
+    //This function will get overwritten by the overarching activity.
     public void setMode() {
         viewMode = 0;
     }
 
     //Function that sets up activity for tour
-    public void tourSetUp() {
+    private void tourSetUp() {
 
         Button btnTopRight = findViewById(R.id.btnTopRight);
         if(numberOfSites == siteNumber){
