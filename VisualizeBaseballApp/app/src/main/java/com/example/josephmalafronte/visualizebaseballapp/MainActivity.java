@@ -31,8 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStream;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
