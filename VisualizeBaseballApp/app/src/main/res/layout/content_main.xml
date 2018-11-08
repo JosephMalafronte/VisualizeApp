@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:gravity="center"
-            android:text="Alabama Stadium Tour"
+            android:text="@string/AlabamaStadiumTour"
             android:textColor="#9E1B32"
             android:textSize="24sp" />
     </LinearLayout>
