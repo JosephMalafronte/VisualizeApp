@@ -38,8 +38,8 @@
                 <td><input type="text" name="imgLink" id="left" /></td>
             </tr>
             <tr> 
-                <td>Center: </td>
-                <td><input type="text" name="imgLink" id="center" /></td>
+                <td>Middle: </td>
+                <td><input type="text" name="imgLink" id="middle" /></td>
             </tr>
             <tr> 
                 <td>Right: </td>
@@ -126,10 +126,10 @@
         var link = document.getElementById('left').value;
         db.ref('BaseballApp/Homepage/Images/LeftImage').set(link);
     }
-    //checks if "center" textbox is not empty
-    if(document.getElementById('center').value!="") {
-        var link = document.getElementById('center').value;
-        db.ref('BaseballApp/Homepage/Images/CenterImage').set(link);
+    //checks if "middle" textbox is not empty
+    if(document.getElementById('middle').value!="") {
+        var link = document.getElementById('middle').value;
+        db.ref('BaseballApp/Homepage/Images/MiddleImage').set(link);
     }
     //checks if "right" textbos is not empty
     if(document.getElementById('right').value!="") {
@@ -157,7 +157,7 @@
     //refreshes page
     location = location
   }
-  
+     
  </script>
 </body>
 </html>
