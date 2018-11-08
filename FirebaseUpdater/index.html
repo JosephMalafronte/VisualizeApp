@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Update Visualize </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset ="utf-8">
+        <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDVoqYhn4UTek69Kz9nsi4pBKSYnlMfOc8",
+            authDomain: "test-project-f0394.firebaseapp.com",
+            databaseURL: "https://test-project-f0394.firebaseio.com",
+            projectId: "test-project-f0394",
+            storageBucket: "test-project-f0394.appspot.com",
+            messagingSenderId: "702290501266"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+<body> 
+    <h1 style="text-align: center">Visualize Database Updater</h1>
+
+        <h2>Upload Image</h2>
+        <form>
+            <p>Choose an image to upload to Firebase Storage: </p>
+            <input type="file" value="upload" id="fileButton"  onchange="enableButton();" />
+        </form> <br> <br>     
+        
+        <button id="uploadButton" onclick="uploadImg();" disabled> Upload</button>    
+           
+    
+        <table>
+        <h2>Update Homescreen Image links</h2>
+            <tr> 
+                <td>Left: </td>
+                <td><input type="text" name="imgLink" id="left" /></td>
+            </tr>
+            <tr> 
+                <td>Middle: </td>
+                <td><input type="text" name="imgLink" id="middle" /></td>
+            </tr>
+            <tr> 
+                <td>Right: </td>
+                <td><input type="text" name="imgLink" id="right" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                <input type="button" value="Update" onclick="updateImgLinks();" />
+                </td>
+            </tr>
+    </table>
+    
+    
+    <table>
+        <h2>Youtube links for location videos</h2>
+            <tr> 
+                <td>Locker Room: </td>
+                <td><input type="text" name="videoLink" id="lockerRoom" /></td>
+            </tr>
+            <tr> 
+                <td>Lounge: </td>
+                <td><input type="text" name="videoLink" id="lounge" /></td>
+            </tr>
+            <tr> 
+                <td>Batting Cages: </td>
+                <td><input type="text" name="videoLink" id="battingCages" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                <input type="button" value="Update" onclick="updateVideoLinks();" />
+                </td>
+            </tr>
+    </table>
+ 
+ <script>
+    var db = firebase.database()
+     
+    var fileButton = document.getElementById('fileButton');
+     
+  fileButton.addEventListener('change', function(e){
+    var file = e.target.files[0];
+      
+    var storageRef = firebase.storage().ref('home_screen/' + file.name);
+      
+    storageRef.put(file);
+    
+  });
+
+     
+  function previewFile(){
+       var preview = document.querySelector('img'); 
+       var file = document.querySelector('input[type=file]').files[0];
+       var reader = new FileReader();
+
+       reader.onloadend = function () {
+           preview.src = reader.result;
+       }
+
+       if (file) {
+           reader.readAsDataURL(file); //reads the data as a URL
+       } else {
+           preview.src = "";
+       }
+  }
+     
+  function enableButton () {
+      document.getElementById("uploadButton").disabled = false;
+  }
+     
+  function uploadImg() {
+    //adding file to firebase storage
+    var file    = document.querySelector('input[type=file]').files[0];
+    var db = firebase.database()
+    var fileButton = document.getElementById('fileButton');
+    var storageRef = firebase.storage().ref('home_screen/' + file.name);
+    var storage = firebase.storage();
+    var uploadTask = storageRef.put(file);  
+    location = location
+  }
+
+    function updateImgLinks() {
+    //checks if "left" textbox is not empty
+    if(document.getElementById('left').value!="") {
+        var link = document.getElementById('left').value;
+        db.ref('BaseballApp/Homepage/Images/LeftImage').set(link);
+    }
+    //checks if "middle" textbox is not empty
+    if(document.getElementById('middle').value!="") {
+        var link = document.getElementById('middle').value;
+        db.ref('BaseballApp/Homepage/Images/MiddleImage').set(link);
+    }
+    //checks if "right" textbos is not empty
+    if(document.getElementById('right').value!="") {
+        var link = document.getElementById('right').value;
+        db.ref('BaseballApp/Homepage/Images/RightImage').set(link);
+    }
+    //refreshes page
+    location = location
+  }
+     
+  function updateVideoLinks() {
+    if(document.getElementById('lockerRoom').value!="") {
+        var link = document.getElementById('lockerRoom').value;
+        db.ref('BaseballApp/Sites/Site1/Link').set(link);
+        console.log('Updated locker room link');
+    }
+    if(document.getElementById('lounge').value!="") {
+        var link = document.getElementById('lounge').value;
+        db.ref('BaseballApp/Sites/Site2/Link').set(link);
+    }
+    if(document.getElementById('battingCages').value!="") {
+        var link = document.getElementById('battingCages').value;
+        db.ref('BaseballApp/Sites/Site3/Link').set(link);
+    }
+    //refreshes page
+    location = location
+  }
+     
+ </script>
+</body>
+</html>
