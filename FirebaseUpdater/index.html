@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <title> Update Visualize </title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset ="utf-8">
-        <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -18,10 +17,27 @@
         };
         firebase.initializeApp(config);
     </script>
+    <style>
+        html {background-color: whitesmoke;}
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            border: none;
+            margin-top: 10px;
+            float: right;
+            text-align: center;
+            
+        }
+        button:hover {
+            background-color: green;
+        }
+    </style>
 </head>
 <body> 
     <h1 style="text-align: center">Visualize Database Updater</h1>
-
+<!--
         <h2>Upload Image</h2>
         <form>
             <p>Choose an image to upload to Firebase Storage: </p>
@@ -29,13 +45,38 @@
         </form> <br> <br>     
         
         <button id="uploadButton" onclick="uploadImg();" disabled> Upload</button>    
-           
+-->
+    <table>
+        <h2>Update Homescreen and Site Titles</h2>
+            <tr> 
+                <td>Homescreen Title: </td>
+                <td><input type="text" name="name" id="homescreen" /></td>
+            </tr>
+            <tr> 
+                <td>Site 1: </td>
+                <td><input type="text" name="name" id="nameone" /></td>
+            </tr>
+            <tr> 
+                <td>Site 2: </td>
+                <td><input type="text" name="name" id="nametwo" /></td>
+            </tr>
+            <tr> 
+                <td>Site 3: </td>
+                <td><input type="text" name="name" id="namethree" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                <button onclick="updateName();">Update</button>
+                </td>
+            </tr>
+    </table>
     
-        <table>
+    <table>
         <h2>Update Homescreen Image links</h2>
             <tr> 
                 <td>Left: </td>
-                <td><input type="text" name="imgLink" id="left" /></td>
+                <td><input type="text" name="imgLink" id="left" /></td> 
             </tr>
             <tr> 
                 <td>Middle: </td>
@@ -46,48 +87,67 @@
                 <td><input type="text" name="imgLink" id="right" /></td>
             </tr>
             <tr>
-                <td colspan="2">
-                <input type="button" value="Update" onclick="updateImgLinks();" />
+                <td></td>
+                <td>
+                <button onclick="updateImgLinks();">Update</button>
                 </td>
             </tr>
     </table>
-    
     
     <table>
         <h2>Youtube links for location videos</h2>
             <tr> 
-                <td>Locker Room: </td>
-                <td><input type="text" name="videoLink" id="lockerRoom" /></td>
+                <td>Site 1:</td>
+                <td id="siteone"></td>
+                <td><input type="text" name="videoLink" id="one" /></td>
             </tr>
             <tr> 
-                <td>Lounge: </td>
-                <td><input type="text" name="videoLink" id="lounge" /></td>
+                <td>Site 2:</td>
+                <td id="sitetwo"></td>
+                <td><input type="text" name="videoLink" id="two" /></td>
             </tr>
             <tr> 
-                <td>Batting Cages: </td>
-                <td><input type="text" name="videoLink" id="battingCages" /></td>
+                <td>Site 3:</td>
+                <td id="sitethree"></td>
+                <td><input type="text" name="videoLink" id="three" /></td>
             </tr>
             <tr>
-                <td colspan="2">
-                <input type="button" value="Update" onclick="updateVideoLinks();" />
+                <td></td>
+                <td></td>
+                <td>
+                <button onclick="updateVideoLinks();">Update</button>
                 </td>
             </tr>
     </table>
- 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
  <script>
     var db = firebase.database()
      
     var fileButton = document.getElementById('fileButton');
      
-  fileButton.addEventListener('change', function(e){
-    var file = e.target.files[0];
-      
-    var storageRef = firebase.storage().ref('home_screen/' + file.name);
-      
-    storageRef.put(file);
+    var siteoneRef = firebase.database().ref('BaseballApp/Sites/Site1/Name');
+    siteoneRef.on('value', function(snapshot) {
+        $("#siteone").html(snapshot.val());
+    }); 
+     
+    var sitetwoRef = firebase.database().ref('BaseballApp/Sites/Site2/Name');
+    sitetwoRef.on('value', function(snapshot) {
+        $("#sitetwo").html(snapshot.val());
+    }); 
+     
+    var sitethreeRef = firebase.database().ref('BaseballApp/Sites/Site3/Name');
+    sitethreeRef.on('value', function(snapshot) {
+        $("#sitethree").html(snapshot.val());
+    }); 
     
-  });
-
+//  fileButton.addEventListener('change', function(e){
+//    var file = e.target.files[0];
+      
+//    var storageRef = firebase.storage().ref('home_screen/' + file.name);
+      
+//    storageRef.put(file);
+    
+//  });
      
   function previewFile(){
        var preview = document.querySelector('img'); 
@@ -120,6 +180,28 @@
     location = location
   }
 
+    function updateName() {
+    if(document.getElementById('homescreen').value!="") {
+        var name = document.getElementById('homescreen').value;
+        db.ref('BaseballApp/Homepage/Title').set(name);
+    }
+    if(document.getElementById('nameone').value!="") {
+        var name = document.getElementById('nameone').value;
+        db.ref('BaseballApp/Sites/Site1/Name').set(name);
+        console.log('Updated Site 1 link');
+    }
+    if(document.getElementById('nametwo').value!="") {
+        var name = document.getElementById('nametwo').value;
+        db.ref('BaseballApp/Sites/Site2/Name').set(name);
+    }
+    if(document.getElementById('namethree').value!="") {
+        var name = document.getElementById('namethree').value;
+        db.ref('BaseballApp/Sites/Site3/Name').set(name);
+    }
+    //refreshes page
+    location = location
+  }
+     
     function updateImgLinks() {
     //checks if "left" textbox is not empty
     if(document.getElementById('left').value!="") {
@@ -141,17 +223,17 @@
   }
      
   function updateVideoLinks() {
-    if(document.getElementById('lockerRoom').value!="") {
-        var link = document.getElementById('lockerRoom').value;
+    if(document.getElementById('one').value!="") {
+        var link = document.getElementById('one').value;
         db.ref('BaseballApp/Sites/Site1/Link').set(link);
-        console.log('Updated locker room link');
+        console.log('Updated Site 1 link');
     }
-    if(document.getElementById('lounge').value!="") {
-        var link = document.getElementById('lounge').value;
+    if(document.getElementById('two').value!="") {
+        var link = document.getElementById('two').value;
         db.ref('BaseballApp/Sites/Site2/Link').set(link);
     }
-    if(document.getElementById('battingCages').value!="") {
-        var link = document.getElementById('battingCages').value;
+    if(document.getElementById('three').value!="") {
+        var link = document.getElementById('three').value;
         db.ref('BaseballApp/Sites/Site3/Link').set(link);
     }
     //refreshes page
