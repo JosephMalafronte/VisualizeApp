@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         refText.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                TextView tv1 = (TextView)findViewById(R.id.editText);
+                TextView tv1 = findViewById(R.id.editText);
                 tv1.setText(dataSnapshot.getValue().toString());
             }
 
