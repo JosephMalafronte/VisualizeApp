@@ -52,7 +52,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/imageRight"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/baseball"
+            app:srcCompat="@drawable/thrower"
             tools:layout_conversion_absoluteHeight="359dp"
             tools:layout_conversion_absoluteWidth="197dp"
             tools:layout_editor_absoluteX="395dp"

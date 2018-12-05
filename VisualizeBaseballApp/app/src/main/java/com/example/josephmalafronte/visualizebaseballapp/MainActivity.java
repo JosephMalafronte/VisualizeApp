@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnTour = (Button) findViewById(R.id.tourButton);
         btnTour.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TourActivity.class));
+                setSiteNumberAndExecute();
             }
         });
 
@@ -199,6 +199,12 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
+    }
+
+    public void setSiteNumberAndExecute(){
+        DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
+        numRef.setValue(1);
+        startActivity(new Intent(MainActivity.this, TourActivity.class));
     }
 
 
