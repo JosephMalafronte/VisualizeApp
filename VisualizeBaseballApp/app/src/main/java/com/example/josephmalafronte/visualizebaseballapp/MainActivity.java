@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnScan = (Button) findViewById(R.id.scanButton);
         btnScan.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, YoutubeActivity.class));
-                //startActivity(new Intent(MainActivity.this, ScanActivity.class));
+                //startActivity(new Intent(MainActivity.this, YoutubeActivity.class));
+                startActivity(new Intent(MainActivity.this, ScanActivity.class));
             }
         });
 

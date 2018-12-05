@@ -27,9 +27,31 @@
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="right|top" />
 
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/youtubePlayerView"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingTop="80dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.google.android.youtube.player.YouTubePlayerView
+                android:id="@+id/youtubePlayerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </com.google.android.youtube.player.YouTubePlayerView>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 
 </android.support.design.widget.CoordinatorLayout>
