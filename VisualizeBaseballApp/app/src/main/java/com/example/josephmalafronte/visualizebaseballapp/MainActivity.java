@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle();
 
         setImages();
+
 
 
 
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnScan = (Button) findViewById(R.id.scanButton);
         btnScan.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+                //startActivity(new Intent(MainActivity.this, YoutubeActivity.class));
                 startActivity(new Intent(MainActivity.this, ScanActivity.class));
             }
         });
