@@ -49,9 +49,7 @@ public class SiteActivity extends YouTubeBaseActivity {
         setContentView(R.layout.activity_site);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        final YouTubePlayerView youtubePlayerView = findViewById(R.id.youtubePlayerView);
-        String videoId = "uwYzZrBbxyk";
-        playVideo(videoId, youtubePlayerView);
+
 
         //Make text not editable
         EditText mEdit = (EditText) findViewById(R.id.editText);
@@ -136,6 +134,7 @@ public class SiteActivity extends YouTubeBaseActivity {
 
         //Set Title
         setTitle();
+        setVideo();
     }
 
     public void getSiteNumber(){
@@ -195,6 +194,26 @@ public class SiteActivity extends YouTubeBaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 TextView tv1 = (TextView)findViewById(R.id.editText);
                 tv1.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+    }
+
+
+    public void setVideo() {
+        DatabaseReference refText = siteRef.child("VideoId");
+
+        refText.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String videoId = dataSnapshot.getValue().toString();
+                final YouTubePlayerView youtubePlayerView = findViewById(R.id.youtubePlayerView);
+                playVideo(videoId, youtubePlayerView);
             }
 
             @Override
