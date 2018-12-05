@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabase = database.getReference();
 
+    String pageTitle = " ";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 TextView tv1 = findViewById(R.id.editText);
-                tv1.setText(dataSnapshot.getValue().toString());
+                pageTitle = dataSnapshot.getValue().toString();
+                tv1.setText(pageTitle);
             }
 
             @Override
