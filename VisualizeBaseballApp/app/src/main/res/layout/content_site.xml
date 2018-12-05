@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="center"
-        android:inputType="none|textPersonName"
+        android:inputType="none"
         android:text=""
         android:textColor="#9E1B32"
         android:textSize="30sp"

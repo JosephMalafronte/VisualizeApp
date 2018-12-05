@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.content.Intent;
@@ -54,7 +55,7 @@ public class SiteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site);
-
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //Make text not editable
         EditText mEdit = (EditText) findViewById(R.id.editText);
@@ -101,11 +102,34 @@ public class SiteActivity extends AppCompatActivity {
 
     }
 
+    //Function that sets up activity for scan
+    private void scanSetUp() {
+
+        Button btnTopRight = findViewById(R.id.btnTopRight);
+        btnTopRight.setVisibility(View.INVISIBLE);
+
+
+        Button btnTopLeft = findViewById(R.id.btnTopLeft);
+
+
+        btnTopLeft.setText("Return To Scanner");
+        btnTopLeft.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(SiteActivity.this, ScanActivity.class));
+            }
+        });
+
+
+    }
+
     public void afterSiteNumber(){
         setMode();
 
         if(viewMode == 1){
             tourSetUp();
+        }
+        else if(viewMode == 2){
+            scanSetUp();
         }
 
 
@@ -141,6 +165,12 @@ public class SiteActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 numberOfSites = Integer.parseInt(dataSnapshot.getValue().toString());
+
+                //Error check
+                if(siteNumber > numberOfSites || siteNumber < 1) {
+                    siteNumber = 1;
+                }
+
                 afterSiteNumber();
             }
 

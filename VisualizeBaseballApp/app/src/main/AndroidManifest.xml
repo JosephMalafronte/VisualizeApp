@@ -41,6 +41,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".ScanSiteActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".ScanActivity" />
 
         <meta-data

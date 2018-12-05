@@ -52,39 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                //Test write to database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference mDatabase = database.getReference();
-
-                DatabaseReference test = mDatabase.child("TestData").child("Value1");
-
-                test.setValue("Taco Tuesday");
-
-                test.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String help = dataSnapshot.getValue().toString();
-                        Log.d("mytag", help);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        System.out.println("The read failed: " + databaseError.getCode());
-                    }
-                });
-            }
-
-        });
-
-
-
         Button btnTour = (Button) findViewById(R.id.tourButton);
         btnTour.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -96,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         btnScan.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ScanActivity.class));
-
             }
         });
 
