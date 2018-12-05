@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -52,51 +53,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                //Test write to database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference mDatabase = database.getReference();
-
-                DatabaseReference test = mDatabase.child("TestData").child("Value1");
-
-                test.setValue("Taco Tuesday");
-
-                test.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String help = dataSnapshot.getValue().toString();
-                        Log.d("mytag", help);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        System.out.println("The read failed: " + databaseError.getCode());
-                    }
-                });
-            }
-
-        });
-
-
 
         Button btnTour = (Button) findViewById(R.id.tourButton);
         btnTour.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TourActivity.class));
+                setSiteNumberAndExecute();
             }
         });
 
         Button btnScan = (Button) findViewById(R.id.scanButton);
         btnScan.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+                //startActivity(new Intent(MainActivity.this, YoutubeActivity.class));
                 startActivity(new Intent(MainActivity.this, ScanActivity.class));
-
             }
         });
 
@@ -139,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         refText.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                TextView tv1 = (TextView)findViewById(R.id.editText);
+                TextView tv1 = findViewById(R.id.editText);
                 tv1.setText(dataSnapshot.getValue().toString());
             }
 
@@ -233,6 +202,12 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
+    }
+
+    public void setSiteNumberAndExecute(){
+        DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
+        numRef.setValue(1);
+        startActivity(new Intent(MainActivity.this, TourActivity.class));
     }
 
 

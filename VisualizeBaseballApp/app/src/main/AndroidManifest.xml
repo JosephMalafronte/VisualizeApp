@@ -36,8 +36,26 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapActivity" />
-        <activity android:name=".TourActivity" />
-        <activity android:name=".ScanActivity"></activity>
+        <activity
+            android:name=".TourActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ScanSiteActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ScanActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".YoutubeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

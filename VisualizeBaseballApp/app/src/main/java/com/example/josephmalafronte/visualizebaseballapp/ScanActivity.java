@@ -3,7 +3,6 @@ package com.example.josephmalafronte.visualizebaseballapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,10 +18,15 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 
 public class ScanActivity extends AppCompatActivity {
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference mDatabase = database.getReference();
 
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
@@ -32,6 +36,8 @@ public class ScanActivity extends AppCompatActivity {
     Button btnAction;
     String intentData = "";
     boolean isEmail = false;
+
+
 
 
     @Override
@@ -52,16 +58,22 @@ public class ScanActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (intentData.length() > 0) {
-                    //if (isEmail)
-                       // startActivity(new Intent(ScanActivity.this, EmailActivity.class).putExtra("email_address", intentData));
-                    //else {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
-                    //}
+                    //Get the site number
+                    int siteNumber = Integer.parseInt(intentData);
+
+                    //Set the Site Number
+                    setSiteNumberAndExecute(siteNumber);
                 }
 
 
             }
         });
+    }
+
+    public void setSiteNumberAndExecute(int num){
+        DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
+        numRef.setValue(num);
+        startActivity(new Intent(ScanActivity.this, ScanSiteActivity.class));
     }
 
     private void initialiseDetectorsAndSources() {
@@ -107,9 +119,10 @@ public class ScanActivity extends AppCompatActivity {
 
 
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
+
             @Override
             public void release() {
-                Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -128,10 +141,10 @@ public class ScanActivity extends AppCompatActivity {
                                 intentData = barcodes.valueAt(0).email.address;
                                 txtBarcodeValue.setText(intentData);
                                 isEmail = true;
-                                btnAction.setText("ADD CONTENT TO THE MAIL");
+                                btnAction.setText("FIND SITE TO SCAN");
                             } else {
                                 isEmail = false;
-                                btnAction.setText("LAUNCH URL");
+                                btnAction.setText("LAUNCH SITE");
                                 intentData = barcodes.valueAt(0).displayValue;
                                 txtBarcodeValue.setText(intentData);
 
