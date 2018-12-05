@@ -30,7 +30,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MapActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabase = database.getReference();
@@ -38,6 +38,8 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     //Button[] buttons;
     final List<String> sites = new ArrayList<String>();
     int count = 0;
+
+    boolean firstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,20 +81,19 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
             ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(MapActivity.this, android.R.layout.simple_spinner_item, sites);
             areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             areaSpinner.setAdapter(areasAdapter);
+
+            areaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                   if(firstTime == false){
+                       String value = parent.getItemAtPosition(pos).toString();
+                       String test = value;
+                   }
+                   else firstTime = false;
+                }
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
         }
-    }
-
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-        int index = pos;
-
-        // here is where we can open youtube video from database
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
     }
 
 
