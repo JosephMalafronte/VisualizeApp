@@ -4,19 +4,20 @@
     <title> Update Visualize </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset ="utf-8">
-        <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
-            apiKey: "AIzaSyDVoqYhn4UTek69Kz9nsi4pBKSYnlMfOc8",
-            authDomain: "test-project-f0394.firebaseapp.com",
-            databaseURL: "https://test-project-f0394.firebaseio.com",
-            projectId: "test-project-f0394",
-            storageBucket: "test-project-f0394.appspot.com",
-            messagingSenderId: "702290501266"
+            apiKey: "AIzaSyBTJCpbkf4ZVfkO66ekgunsxsumJiULMqk",
+            authDomain: "visualize-baseball-app.firebaseapp.com",
+            databaseURL: "https://visualize-baseball-app.firebaseio.com",
+            projectId: "visualize-baseball-app",
+            storageBucket: "visualize-baseball-app.appspot.com",
+            messagingSenderId: "255845041100"
         };
-        firebase.initializeApp(config);
-    </script>
+  firebase.initializeApp(config);
+</script>
     <style>
         html {background-color: whitesmoke;}
         button {
@@ -49,12 +50,13 @@
     <table>
         <h2>Update Homescreen and Site Titles</h2>
             <tr> 
-                <td>Homescreen Title: </td>
+                <td>Homescreen: </td>
                 <td><input type="text" name="name" id="homescreen" /></td>
             </tr>
             <tr> 
                 <td>Site 1: </td>
                 <td><input type="text" name="name" id="nameone" /></td>
+                
             </tr>
             <tr> 
                 <td>Site 2: </td>
@@ -63,6 +65,22 @@
             <tr> 
                 <td>Site 3: </td>
                 <td><input type="text" name="name" id="namethree" /></td>
+            </tr>
+            <tr> 
+                <td>Site 4: </td>
+                <td><input type="text" name="name" id="namefour" /></td>
+            </tr>
+            <tr> 
+                <td>Site 5: </td>
+                <td><input type="text" name="name" id="namefive" /></td>
+            </tr>
+            <tr> 
+                <td>Site 6: </td>
+                <td><input type="text" name="name" id="namesix" /></td>
+            </tr>
+            <tr> 
+                <td>Site 7: </td>
+                <td><input type="text" name="name" id="nameseven" /></td>
             </tr>
             <tr>
                 <td></td>
@@ -111,6 +129,26 @@
                 <td id="sitethree"></td>
                 <td><input type="text" name="videoLink" id="three" /></td>
             </tr>
+            <tr> 
+                <td>Site 4:</td>
+                <td id="sitefour"></td>
+                <td><input type="text" name="videoLink" id="four" /></td>
+            </tr>
+            <tr> 
+                <td>Site 5:</td>
+                <td id="sitefive"></td>
+                <td><input type="text" name="videoLink" id="five" /></td>
+            </tr>
+            <tr> 
+                <td>Site 6:</td>
+                <td id="sitesix"></td>
+                <td><input type="text" name="videoLink" id="six" /></td>
+            </tr>
+            <tr> 
+                <td>Site 7:</td>
+                <td id="siteseven"></td>
+                <td><input type="text" name="videoLink" id="seven" /></td>
+            </tr>
             <tr>
                 <td></td>
                 <td></td>
@@ -119,6 +157,21 @@
                 </td>
             </tr>
     </table>
+    
+    <table>
+        <h2>Map Image</h2>
+        <tr>
+            <td>Map:</td>
+            <td><input type="text" name="imgLink" id="map" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+            <button onclick="updateMap();">Update</button>
+            </td>
+        </tr>
+    </table>
+    
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
  <script>
     var db = firebase.database()
@@ -139,6 +192,26 @@
     sitethreeRef.on('value', function(snapshot) {
         $("#sitethree").html(snapshot.val());
     }); 
+     
+    var sitefourRef = firebase.database().ref('BaseballApp/Sites/Site4/Name');
+    sitefourRef.on('value', function(snapshot) {
+        $("#sitefour").html(snapshot.val());
+    });
+     
+    var sitefiveRef = firebase.database().ref('BaseballApp/Sites/Site5/Name');
+    sitefiveRef.on('value', function(snapshot) {
+        $("#sitefive").html(snapshot.val());
+    });
+     
+    var sitesixRef = firebase.database().ref('BaseballApp/Sites/Site6/Name');
+    sitesixRef.on('value', function(snapshot) {
+        $("#sitesix").html(snapshot.val());
+    });
+     
+    var sitesevenRef = firebase.database().ref('BaseballApp/Sites/Site7/Name');
+    sitesevenRef.on('value', function(snapshot) {
+        $("#siteseven").html(snapshot.val());
+    });
     
 //  fileButton.addEventListener('change', function(e){
 //    var file = e.target.files[0];
@@ -225,16 +298,42 @@
   function updateVideoLinks() {
     if(document.getElementById('one').value!="") {
         var link = document.getElementById('one').value;
-        db.ref('BaseballApp/Sites/Site1/Link').set(link);
+        db.ref('BaseballApp/Sites/Site1/VideoId').set(link);
         console.log('Updated Site 1 link');
     }
     if(document.getElementById('two').value!="") {
         var link = document.getElementById('two').value;
-        db.ref('BaseballApp/Sites/Site2/Link').set(link);
+        db.ref('BaseballApp/Sites/Site2/VideoId').set(link);
     }
     if(document.getElementById('three').value!="") {
         var link = document.getElementById('three').value;
-        db.ref('BaseballApp/Sites/Site3/Link').set(link);
+        db.ref('BaseballApp/Sites/Site3/VideoId').set(link);
+    }
+    if(document.getElementById('four').value!="") {
+        var link = document.getElementById('four').value;
+        db.ref('BaseballApp/Sites/Site4/VideoId').set(link);
+    }
+    if(document.getElementById('five').value!="") {
+        var link = document.getElementById('five').value;
+        db.ref('BaseballApp/Sites/Site5/VideoId').set(link);
+    }
+    if(document.getElementById('six').value!="") {
+        var link = document.getElementById('six').value;
+        db.ref('BaseballApp/Sites/Site6/VideoId').set(link);
+    }
+    if(document.getElementById('seven').value!="") {
+        var link = document.getElementById('seven').value;
+        db.ref('BaseballApp/Sites/Sites7/VideoId').set(link);
+    }
+    //refreshes page
+    location = location
+  }
+     
+  function updateMap() {
+    if(document.getElementById('map').value!="") {
+        var link = document.getElementById('map').value;
+        db.ref('BaseballApp/Map').set(link);
+        console.log('map link updated');
     }
     //refreshes page
     location = location
