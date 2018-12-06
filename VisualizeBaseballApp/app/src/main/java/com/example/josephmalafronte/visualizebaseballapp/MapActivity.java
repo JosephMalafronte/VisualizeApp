@@ -38,6 +38,7 @@ public class MapActivity extends AppCompatActivity {
     //Button[] buttons;
     final List<String> sites = new ArrayList<String>();
     int count = 0;
+    int numberOfSites = 0;
 
     boolean firstTime = true;
 
@@ -47,12 +48,28 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        buildArray();
+        getNumSites();
+    }
+
+    public void getNumSites() {
+        DatabaseReference totalRef = mDatabase.child("BaseballApp").child("Sites").child("NumberOfSites");
+        totalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                numberOfSites = Integer.parseInt(dataSnapshot.getValue().toString());
+                buildArray();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
 
     public void buildArray () {
         int i = 1;
-        for(i = 1; i<=3; i++) {
+        for(i = 1; i<=numberOfSites; i++) {
             String siteString = "Site" + i;
             DatabaseReference ref = mDatabase.child("BaseballApp").child("Sites").child(siteString).child("Name");
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -76,7 +93,7 @@ public class MapActivity extends AppCompatActivity {
 
     public void incCount() {
         count++;
-        if (count==3){
+        if (count==numberOfSites){
             Spinner areaSpinner = (Spinner) findViewById(R.id.spinner);
             ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(MapActivity.this, android.R.layout.simple_spinner_item, sites);
             areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -86,7 +103,7 @@ public class MapActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                    if(firstTime == false){
                        String value = parent.getItemAtPosition(pos).toString();
-                       String test = value;
+                       getSiteString(value);
                    }
                    else firstTime = false;
                 }
@@ -96,6 +113,45 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 
+    public void getSiteString (final String siteName){
+        int i = 1;
+        for(i = 1; i<=numberOfSites; i++) {
+            final String siteString = "Site" + i;
+            DatabaseReference ref = mDatabase.child("BaseballApp").child("Sites").child(siteString).child("Name");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    final String siteNow = dataSnapshot.getValue().toString();
+                    if(siteName.equals(siteNow)){
+                        getSiteNumberAndExcute(siteString);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+        }
+    }
+
+    public void getSiteNumberAndExcute(final String siteName){
+        DatabaseReference ref = mDatabase.child("BaseballApp").child("Sites").child(siteName).child("SiteNumber");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int num = Integer.parseInt(dataSnapshot.getValue().toString());
+                DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
+                numRef.setValue(num);
+                startActivity(new Intent(MapActivity.this, ScanSiteActivity.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
 
     public void setImage() {
 
