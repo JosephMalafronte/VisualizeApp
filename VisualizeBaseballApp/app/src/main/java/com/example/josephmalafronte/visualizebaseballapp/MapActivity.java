@@ -49,6 +49,7 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
 
         getNumSites();
+        setImage();
     }
 
     public void getNumSites() {
@@ -143,7 +144,7 @@ public class MapActivity extends AppCompatActivity {
                 int num = Integer.parseInt(dataSnapshot.getValue().toString());
                 DatabaseReference numRef = mDatabase.child("BaseballApp").child("Sites").child("CurrentSite");
                 numRef.setValue(num);
-                startActivity(new Intent(MapActivity.this, ScanSiteActivity.class));
+                startActivity(new Intent(MapActivity.this, MapSiteActivity.class));
             }
 
             @Override

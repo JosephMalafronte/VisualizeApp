@@ -100,7 +100,12 @@ public class SiteActivity extends YouTubeBaseActivity {
     private void scanSetUp() {
 
         Button btnTopRight = findViewById(R.id.btnTopRight);
-        btnTopRight.setVisibility(View.INVISIBLE);
+        btnTopRight.setText("Return To HomePage");
+        btnTopRight.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(SiteActivity.this, MainActivity.class));
+            }
+        });
 
 
         Button btnTopLeft = findViewById(R.id.btnTopLeft);
@@ -116,6 +121,31 @@ public class SiteActivity extends YouTubeBaseActivity {
 
     }
 
+    //Function that sets up activity for map
+    private void mapSetUp() {
+
+        Button btnTopRight = findViewById(R.id.btnTopRight);
+        btnTopRight.setText("Return To HomePage");
+        btnTopRight.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(SiteActivity.this, MainActivity.class));
+            }
+        });
+
+
+        Button btnTopLeft = findViewById(R.id.btnTopLeft);
+
+
+        btnTopLeft.setText("Return To Map");
+        btnTopLeft.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(SiteActivity.this, MapActivity.class));
+            }
+        });
+
+
+    }
+
     public void afterSiteNumber(){
         setMode();
 
@@ -124,6 +154,9 @@ public class SiteActivity extends YouTubeBaseActivity {
         }
         else if(viewMode == 2){
             scanSetUp();
+        }
+        else if(viewMode == 3){
+            mapSetUp();
         }
 
 
